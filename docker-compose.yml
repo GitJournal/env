@@ -3,6 +3,7 @@ version: "3"
 services:
   reverse-proxy:
     image: traefik:v2.3
+    restart: always
     command:
       - --api.dashboard=false
       - --providers.docker
