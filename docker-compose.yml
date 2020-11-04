@@ -21,7 +21,7 @@ services:
       - /data/acme:/etc/traefik/acme
 
   postgres:
-    image: postgres
+    image: postgres:13
     restart: always
     network_mode: host
     env_file:
