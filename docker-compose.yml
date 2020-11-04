@@ -8,6 +8,8 @@ services:
       - --api.dashboard=false
       - --providers.docker
       - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.myresolver.acme.email=gitjournal.io@gmail.com
       - --certificatesresolvers.myresolver.acme.storage=/etc/traefik/acme/acme.json
