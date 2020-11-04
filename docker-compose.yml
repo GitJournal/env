@@ -28,7 +28,6 @@ services:
   postgres:
     image: postgres:13
     restart: always
-    network_mode: host
     env_file:
       - secrets/postgres.env
     environment:
@@ -39,7 +38,6 @@ services:
   gotrue_migrate:
     image: ghcr.io/gitjournal/gotrue
     command: gotrue migrate
-    network_mode: host
     env_file:
       - gotrue.env
       - secrets/gotrue.env
@@ -47,7 +45,6 @@ services:
   gotrue:
     image: ghcr.io/gitjournal/gotrue
     restart: always
-    network_mode: host
     env_file:
       - gotrue.env
       - secrets/gotrue.env
