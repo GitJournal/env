@@ -15,6 +15,9 @@ services:
       - --certificatesresolvers.myresolver.acme.storage=/etc/traefik/acme/acme.json
       - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --metrics.prometheus=true
+      - --metrics.prometheus.entryPoint=metrics
+      - --entryPoints.metrics.address=:8082
     ports:
       - "80:80"
       - "443:443"
