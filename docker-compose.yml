@@ -47,8 +47,6 @@ services:
   gotrue:
     image: ghcr.io/gitjournal/gotrue
     restart: always
-    ports:
-      - 9999:9999
     env_file:
       - gotrue.env
       - secrets/gotrue.env
@@ -58,3 +56,4 @@ services:
       - "traefik.http.routers.gotrue.tls.certresolver=myresolver"
       - "traefik.http.middlewares.gotrue.stripprefix.prefixes=/auth"
       - "traefik.http.middlewares.gotrue.stripprefix.forceSlash=false"
+      - "traefik.http.services.gotrue.loadbalancer.server.port=9999"
