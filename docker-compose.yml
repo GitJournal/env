@@ -18,6 +18,8 @@ services:
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=metrics
       - --entryPoints.metrics.address=:8082
+    networks:
+      - gj_network
     ports:
       - "80:80"
       - "443:443"
@@ -32,6 +34,8 @@ services:
       - secrets/postgres.env
     environment:
       - POSTGRES_HOST_AUTH_METHOD=md5
+    networks:
+      - gj_network
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
@@ -41,6 +45,8 @@ services:
     env_file:
       - gotrue.env
       - secrets/gotrue.env
+    networks:
+      - gj_network
 
   gotrue:
     image: ghcr.io/gitjournal/gotrue
@@ -56,3 +62,10 @@ services:
       - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.prefixes=/auth"
       - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.forceSlash=false"
       - "traefik.http.services.gotrue.loadbalancer.server.port=9999"
+    networks:
+      - gj_network
+
+networks:
+  default:
+    external:
+      name: gj_network
