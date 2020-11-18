@@ -18,8 +18,6 @@ services:
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=metrics
       - --entryPoints.metrics.address=:8082
-    networks:
-      - gj_network
     ports:
       - "80:80"
       - "443:443"
@@ -34,8 +32,6 @@ services:
       - secrets/postgres.env
     environment:
       - POSTGRES_HOST_AUTH_METHOD=md5
-    networks:
-      - gj_network
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
@@ -47,8 +43,6 @@ services:
       - secrets/gotrue.env
     depends_on:
       - postgres
-    networks:
-      - gj_network
 
   gotrue:
     image: ghcr.io/gitjournal/gotrue
@@ -66,10 +60,27 @@ services:
       - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.prefixes=/auth"
       - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.forceSlash=false"
       - "traefik.http.services.gotrue.loadbalancer.server.port=9999"
-    networks:
-      - gj_network
 
-networks:
-  default:
-    external:
-      name: gj_network
+  listmonk:
+    image: listmonk/listmonk:v0.8.0-beta
+    restart: unless-stopped
+    ports:
+      - "9128:9128"
+    volumes:
+      - ./secrets/listmonk.config.toml/:/listmonk/config.toml
+    depends_on:
+      - postgres
+    labels:
+      - "traefik.http.routers.listmonk.rule=Host(`listmonk.gitjournal.io`)"
+      - "traefik.http.routers.listmonk.tls=true"
+      - "traefik.http.routers.listmonk.tls.certresolver=myresolver"
+      - "traefik.http.services.listmonk.loadbalancer.server.port=9999"
+
+  # listmonk_install:
+  #   image: listmonk/listmonk:v0.8.0-beta
+  #   restart: unless-stopped
+  #   command: ["sh", "-c", "yes | ./listmonk --install"]
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - ./secrets/listmonk.config.toml/:/listmonk/config.toml
