@@ -45,6 +45,8 @@ services:
     env_file:
       - gotrue.env
       - secrets/gotrue.env
+    depends_on:
+      - postgres
     networks:
       - gj_network
 
@@ -54,6 +56,8 @@ services:
     env_file:
       - gotrue.env
       - secrets/gotrue.env
+    depends_on:
+      - postgres
     labels:
       - "traefik.http.routers.gotrue.rule=Host(`api.gitjournal.io`) && PathPrefix(`/auth/`)"
       - "traefik.http.routers.gotrue.tls=true"
