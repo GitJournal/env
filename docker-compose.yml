@@ -35,14 +35,14 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
-  gotrue_migrate:
-    image: ghcr.io/gitjournal/gotrue
-    command: gotrue migrate
-    env_file:
-      - gotrue.env
-      - secrets/gotrue.env
-    depends_on:
-      - postgres
+  # gotrue_migrate:
+  #   image: ghcr.io/gitjournal/gotrue
+  #   command: gotrue migrate
+  #   env_file:
+  #     - gotrue.env
+  #     - secrets/gotrue.env
+  #   depends_on:
+  #     - postgres
 
   gotrue:
     image: ghcr.io/gitjournal/gotrue
