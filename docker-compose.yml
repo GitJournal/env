@@ -26,7 +26,7 @@ services:
       - ./data/acme:/etc/traefik/acme
 
   postgres:
-    image: postgres:13
+    image: postgres:12
     restart: always
     env_file:
       - secrets/postgres.env
