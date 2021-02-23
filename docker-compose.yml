@@ -78,8 +78,15 @@ services:
 
   # listmonk_install:
   #   image: listmonk/listmonk:v0.9.0-beta
-  #   restart: unless-stopped
   #   command: ["sh", "-c", "yes | ./listmonk --install"]
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - ./secrets/listmonk.config.toml/:/listmonk/config.toml
+
+  # listmonk_upgrade:
+  #   image: listmonk/listmonk:v0.9.0-beta
+  #   command: ["sh", "-c", "yes | ./listmonk --upgrade"]
   #   ports:
   #     - "9000:9000"
   #   volumes:
