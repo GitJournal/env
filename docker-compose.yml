@@ -13,14 +13,21 @@ services:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.myresolver.acme.email=gitjournal.io@gmail.com
       - --certificatesresolvers.myresolver.acme.storage=/etc/traefik/acme/acme.json
-      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.dnsChallenge=true
+      - --certificatesresolvers.myresolver.acme.dnsChallenge.provider=namedotcom
+      - --certificatesresolvers.myresolver.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
+      # - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      # - --certificatesresolvers.myresolver.acme.httpchallenge=true
+      # - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=metrics
       - --entryPoints.metrics.address=:8082
+      - --log.level=DEBUG
     ports:
       - "80:80"
       - "443:443"
+    env_file:
+      - secrets/traefik.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/acme:/etc/traefik/acme
@@ -70,11 +77,11 @@ services:
       - ./secrets/listmonk.config.toml/:/listmonk/config.toml
     depends_on:
       - postgres
-    # labels:
-    #   - "traefik.http.routers.listmonk.rule=Host(`listmonk.gitjournal.io`)"
-    #   - "traefik.http.routers.listmonk.tls=true"
-    #   - "traefik.http.routers.listmonk.tls.certresolver=myresolver"
-    #   - "traefik.http.services.listmonk.loadbalancer.server.port=9999"
+    labels:
+      - "traefik.http.routers.listmonk.rule=Host(`listmonk.gitjournal.io`)"
+      - "traefik.http.routers.listmonk.tls=true"
+      - "traefik.http.routers.listmonk.tls.certresolver=myresolver"
+      - "traefik.http.services.listmonk.loadbalancer.server.port=9999"
 
   # listmonk_install:
   #   image: listmonk/listmonk:v0.9.0-beta
