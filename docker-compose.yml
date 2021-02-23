@@ -16,9 +16,8 @@ services:
       - --certificatesresolvers.myresolver.acme.dnsChallenge=true
       - --certificatesresolvers.myresolver.acme.dnsChallenge.provider=namedotcom
       - --certificatesresolvers.myresolver.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
-      # - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      # - --certificatesresolvers.myresolver.acme.httpchallenge=true
-      # - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.keytype=EC384
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=metrics
       - --entryPoints.metrics.address=:8082
