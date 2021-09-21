@@ -41,32 +41,6 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
-  # gotrue_migrate:
-  #   image: ghcr.io/gitjournal/gotrue
-  #   command: gotrue migrate
-  #   env_file:
-  #     - gotrue.env
-  #     - secrets/gotrue.env
-  #   depends_on:
-  #     - postgres
-
-  gotrue:
-    image: ghcr.io/gitjournal/gotrue
-    restart: always
-    env_file:
-      - gotrue.env
-      - secrets/gotrue.env
-    depends_on:
-      - postgres
-    labels:
-      - "traefik.http.routers.gotrue.rule=Host(`api.gitjournal.io`) && PathPrefix(`/auth/`)"
-      - "traefik.http.routers.gotrue.tls=true"
-      - "traefik.http.routers.gotrue.tls.certresolver=myresolver"
-      - "traefik.http.routers.gotrue.middlewares=gotrue-stripprefix"
-      - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.prefixes=/auth"
-      - "traefik.http.middlewares.gotrue-stripprefix.stripprefix.forceSlash=false"
-      - "traefik.http.services.gotrue.loadbalancer.server.port=9999"
-
   listmonk:
     image: listmonk/listmonk:v0.9.0-beta
     restart: unless-stopped
