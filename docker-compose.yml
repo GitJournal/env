@@ -32,12 +32,12 @@ services:
       - ./data/acme:/etc/traefik/acme
 
   postgres:
-    image: postgres:12
+    image: postgres:13
     restart: always
     env_file:
       - secrets/postgres.env
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=md5
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
