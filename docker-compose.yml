@@ -37,7 +37,7 @@ services:
     env_file:
       - secrets/postgres.env
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - POSTGRES_HOST_AUTH_METHOD=md5
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
 
