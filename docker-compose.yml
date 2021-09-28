@@ -1,10 +1,13 @@
-version: "3"
+version: "3.9"
 
 networks:
   web:
     external: true
   internal:
-    external: false
+    external: true
+  default:
+    external: true
+    name: internal
 
 services:
   caddy:
@@ -17,6 +20,9 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
+    networks:
+      - web
+      - internal
 
   postgres:
     image: supabase/postgres
