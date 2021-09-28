@@ -35,7 +35,7 @@ scrape_configs:
     scrape_interval: 5s
     dns_sd_configs:
     - names:
-      - 'tasks.cadvisor'
+      - 'cadvisor'
       type: 'A'
       port: 8080
 
@@ -43,7 +43,7 @@ scrape_configs:
     scrape_interval: 5s
     dns_sd_configs:
     - names:
-      - 'tasks.node-exporter'
+      - 'node-exporter'
       type: 'A'
       port: 9100
 
@@ -52,7 +52,7 @@ scrape_configs:
     - names:
       - 'caddy'
       type: 'A'
-      port: 2109
+      port: 2019
 
   - job_name: n8n
     dns_sd_configs:

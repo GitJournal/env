@@ -3,6 +3,8 @@
 
     # Optional staging lets encrypt for testing. Comment out for production.
     # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+
+    admin :2019
 }
 
 grafana.gitjournal.io {
