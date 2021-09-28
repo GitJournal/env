@@ -123,3 +123,14 @@ services:
       - ./secrets/grafana.env
     user: "472"
     restart: on-failure
+
+  n8n:
+    image: n8nio/n8n
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    env_file:
+      - ./secrets/n8n.env
+    volumes:
+      - ./data/n8n:/home/node/.n8n
+    command: n8n start

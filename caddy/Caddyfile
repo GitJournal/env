@@ -12,3 +12,7 @@ grafana.gitjournal.io {
 listmonk.gitjournal.io {
     reverse_proxy listmonk:9128
 }
+
+n8n.gitjournal.io {
+    reverse_proxy n8n:5678
+}
