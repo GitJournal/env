@@ -1,39 +1,26 @@
 version: "3"
 
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
 services:
-  reverse-proxy:
-    image: traefik:v2.4
-    restart: always
-    command:
-      - --api.dashboard=false
-      - --providers.docker
-      - --entrypoints.web.address=:80
-      - --entrypoints.web.http.redirections.entryPoint.to=websecure
-      - --entrypoints.web.http.redirections.entryPoint.scheme=https
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.myresolver.acme.email=gitjournal.io@gmail.com
-      - --certificatesresolvers.myresolver.acme.storage=/etc/traefik/acme/acme.json
-      - --certificatesresolvers.myresolver.acme.dnsChallenge=true
-      - --certificatesresolvers.myresolver.acme.dnsChallenge.provider=namedotcom
-      - --certificatesresolvers.myresolver.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      - --certificatesresolvers.myresolver.acme.keytype=EC384
-      - --metrics.prometheus=true
-      - --metrics.prometheus.entryPoint=metrics
-      - --entryPoints.metrics.address=:8082
-      - --log.level=DEBUG
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
-    env_file:
-      - secrets/traefik.env
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data/acme:/etc/traefik/acme
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./data/caddy/data:/data
+      - ./data/caddy/config:/config
 
   postgres:
     image: supabase/postgres
-    restart: always
+    restart: unless-stopped
     env_file:
       - secrets/postgres.env
     environment:
@@ -42,7 +29,7 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
   listmonk:
-    image: listmonk/listmonk:v0.9.0-beta
+    image: listmonk/listmonk:v2.0.0
     restart: unless-stopped
     ports:
       - "9128:9128"
@@ -57,7 +44,7 @@ services:
       - "traefik.http.services.listmonk.loadbalancer.server.port=9999"
 
   # listmonk_install:
-  #   image: listmonk/listmonk:v0.9.0-beta
+  #   image: listmonk/listmonk:v2.0.0
   #   command: ["sh", "-c", "yes | ./listmonk --install"]
   #   ports:
   #     - "9000:9000"
@@ -65,7 +52,7 @@ services:
   #     - ./secrets/listmonk.config.toml/:/listmonk/config.toml
 
   # listmonk_upgrade:
-  #   image: listmonk/listmonk:v0.9.0-beta
+  #   image: listmonk/listmonk:v2.0.0
   #   command: ["sh", "-c", "yes | ./listmonk --upgrade"]
   #   ports:
   #     - "9000:9000"
