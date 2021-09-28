@@ -32,7 +32,7 @@ services:
       - ./data/acme:/etc/traefik/acme
 
   postgres:
-    image: postgres:13
+    image: supabase/postgres
     restart: always
     env_file:
       - secrets/postgres.env
