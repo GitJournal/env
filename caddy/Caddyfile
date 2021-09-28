@@ -8,3 +8,7 @@
 grafana.gitjournal.io {
     reverse_proxy grafana:3000
 }
+
+listmonk.gitjournal.io {
+    reverse_proxy listmonk:9128
+}

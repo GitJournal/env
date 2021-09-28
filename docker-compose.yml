@@ -37,11 +37,6 @@ services:
       - ./secrets/listmonk.config.toml/:/listmonk/config.toml
     depends_on:
       - postgres
-    labels:
-      - "traefik.http.routers.listmonk.rule=Host(`listmonk.gitjournal.io`)"
-      - "traefik.http.routers.listmonk.tls=true"
-      - "traefik.http.routers.listmonk.tls.certresolver=myresolver"
-      - "traefik.http.services.listmonk.loadbalancer.server.port=9999"
 
   # listmonk_install:
   #   image: listmonk/listmonk:v2.0.0
