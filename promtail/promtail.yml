@@ -15,7 +15,6 @@ scrape_configs:
       - labels:
           job: varlogs
           __path__: /var/log/*.log
-
   - job_name: journal
     journal:
       json: false
@@ -33,11 +32,3 @@ scrape_configs:
       - source_labels:
           - __journal_syslog_identifier
         target_label: syslog_identifier
-
-  - job_name: push
-    loki_push_api:
-      server:
-        http_listen_port: 3500
-        grpc_listen_port: 3600
-      labels:
-        pushserver: push
