@@ -61,6 +61,7 @@ services:
 
   prometheus:
     image: prom/prometheus
+    restart: unless-stopped
     volumes:
       - ./prometheus/:/etc/prometheus/
       - ./data/prometheus:/prometheus
@@ -73,10 +74,10 @@ services:
       - "--web.enable-admin-api"
     depends_on:
       - cadvisor
-    restart: on-failure
 
   node-exporter:
     image: prom/node-exporter
+    restart: unless-stopped
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -86,28 +87,28 @@ services:
       - "--path.sysfs=/host/sys"
       - --collector.filesystem.ignored-mount-points
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-    restart: on-failure
 
   alertmanager:
     image: prom/alertmanager
+    restart: unless-stopped
     volumes:
       - "./alertmanager/:/etc/alertmanager/"
     command:
       - "--config.file=/etc/alertmanager/config.yml"
       - "--storage.path=/alertmanager"
-    restart: on-failure
 
   cadvisor:
     image: google/cadvisor
+    restart: unless-stopped
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    restart: on-failure
 
   grafana:
     image: grafana/grafana
+    restart: unless-stopped
     depends_on:
       - prometheus
     volumes:
@@ -117,7 +118,6 @@ services:
       - ./grafana/config.env
       - ./secrets/grafana.env
     user: "472"
-    restart: on-failure
 
   n8n:
     image: n8nio/n8n
