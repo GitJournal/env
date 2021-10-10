@@ -133,9 +133,11 @@ services:
     depends_on:
       - loki
     volumes:
-      - /var/log:/var/log
-      - /var/lib/docker/containers:/var/lib/docker/containers
-      - ./promtail:/etc/promtail-config/
+      - /var/log:/var/log:ro
+      - /run/log/journal:/run/log/journal:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /etc/machine-id:/etc/machine-id:ro
+      - ./promtail:/etc/promtail-config:ro
       - ./data/promtail:/data/
     command: -config.file=/etc/promtail/config.yml
     ports:
