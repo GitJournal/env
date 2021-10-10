@@ -107,7 +107,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:8.2.0
     restart: unless-stopped
     depends_on:
       - prometheus
@@ -118,6 +118,28 @@ services:
       - ./grafana/config.env
       - ./secrets/grafana.env
     user: "472"
+
+  loki:
+    image: grafana/loki:2.3.0
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki/config.yaml:/etc/loki/config.yaml
+      - ./data/loki:/data/
+
+  promtail:
+    image: grafana/promtail:2.3.0
+    restart: unless-stopped
+    depends_on:
+      - loki
+    volumes:
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail:/etc/promtail-config/
+      - ./data/promtail:/data/
+    command: -config.file=/etc/promtail/config.yml
+    ports:
+      - "3500:3500" # Docker logging
 
   n8n:
     image: n8nio/n8n
