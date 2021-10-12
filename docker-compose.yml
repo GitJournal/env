@@ -167,5 +167,6 @@ services:
     env_file:
       - ./secrets/n8n.env
     volumes:
+      - ./data/apks:/apks/
       - ./data/n8n:/home/node/.n8n
     command: n8n start
