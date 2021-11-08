@@ -34,6 +34,7 @@ services:
 
   postgres:
     image: supabase/postgres
+    container_name: postgres
     restart: unless-stopped
     logging: *default-logging
     env_file:
@@ -45,6 +46,7 @@ services:
 
   clickhouse:
     image: yandex/clickhouse-server:21.3.2.5
+    container_name: clickhouse
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -58,6 +60,7 @@ services:
 
   plausible:
     image: plausible/analytics:v1.4
+    container_name: plausible
     restart: unless-stopped
     logging: *default-logging
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
@@ -76,6 +79,7 @@ services:
 
   listmonk:
     image: listmonk/listmonk:v2.0.0
+    container_name: listmonk
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -101,6 +105,7 @@ services:
 
   prometheus:
     image: prom/prometheus
+    container_name: prometheus
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -118,6 +123,7 @@ services:
 
   node-exporter:
     image: prom/node-exporter
+    container_name: prom_node_exporter
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -132,6 +138,7 @@ services:
 
   alertmanager:
     image: prom/alertmanager
+    container_name: prom_alertmanager
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -142,6 +149,7 @@ services:
 
   cadvisor:
     image: google/cadvisor
+    container_name: prom_cadvisor
     restart: unless-stopped
     logging: *default-logging
     volumes:
@@ -152,6 +160,7 @@ services:
 
   grafana:
     image: grafana/grafana:8.2.0
+    container_name: grafana
     logging: *default-logging
     restart: unless-stopped
     depends_on:
@@ -166,6 +175,7 @@ services:
 
   loki:
     image: grafana/loki:2.3.0
+    container_name: loki
     restart: unless-stopped
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
@@ -191,6 +201,7 @@ services:
 
   n8n:
     image: n8nio/n8n
+    container_name: n8n
     restart: unless-stopped
     logging: *default-logging
     depends_on:
