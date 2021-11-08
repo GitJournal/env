@@ -23,3 +23,7 @@ fdroid.gitjournal.io {
 	root * /fdroid
 	file_server
 }
+
+plausible.gitjournal.io {
+	reverse_proxy plausible:8000
+}
