@@ -27,3 +27,7 @@ fdroid.gitjournal.io {
 p.gitjournal.io {
 	reverse_proxy plausible:8000
 }
+
+api.gitjournal.io {
+	reverse_proxy kong:8000
+}
