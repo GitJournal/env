@@ -19,11 +19,6 @@ n8n.gitjournal.io {
 	reverse_proxy n8n:5678
 }
 
-fdroid.gitjournal.io {
-	root * /fdroid
-	file_server
-}
-
 p.gitjournal.io {
 	reverse_proxy plausible:8000
 }
