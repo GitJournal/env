@@ -28,6 +28,7 @@ services:
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
       - ./data/fdroid:/fdroid
+      - ./data/app-store-review-feed:/app-store-review-feed/
     networks:
       - web
       - internal
@@ -284,3 +285,11 @@ services:
   #   environment:
   #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   #   command: postgres -c wal_level=logical
+
+  app-store-reviews:
+    image: ghcr.io/gitjournal/app-store-review-feed
+    container_name: app-store-review-feed
+    restart: unless-stopped
+    logging: *default-logging
+    volumes:
+      - ./data/app-store-review-feed/:/data
