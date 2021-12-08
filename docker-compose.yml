@@ -293,3 +293,4 @@ services:
     logging: *default-logging
     volumes:
       - ./data/app-store-review-feed/:/data
+      - ./app-store-review/config.yml:/usr/src/app/config.yml

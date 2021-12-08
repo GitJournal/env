@@ -1,0 +1,16 @@
+# The list of apps and information about the resulting feeds.
+apps:
+
+  # For each app, include this structure
+  - itunes_app_id: 1466519634
+    app_name: GitJournal
+    dest_file_path: /data/gitjournal.json
+    dest_feed_url: https://www.example.com/app-review-feeds/feed.json
+
+# The script will sleep for this number of seconds between retrieving feeds from 
+# itunes.apple.com, in order to play nice with Apple's servers.
+sleep_between: 2
+
+# Each article in the feed will include a Google Translate link for the review text. 
+# Specify the code of the target language here.
+translation_target_language_code: en
