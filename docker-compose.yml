@@ -293,4 +293,11 @@ services:
     logging: *default-logging
     volumes:
       - ./data/app-store-review-feed/:/data
-      - ./app-store-review/config.yml:/usr/src/app/config.yml
+
+  app-store-reviews-feed-converter:
+    build: feed-converter
+    container_name: app-store-review-feed-converter
+    restart: unless-stopped
+    logging: *default-logging
+    volumes:
+      - ./data/app-store-review-feed/:/data
