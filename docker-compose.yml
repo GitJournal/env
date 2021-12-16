@@ -201,7 +201,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
 
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:0.153.0
     container_name: n8n
     restart: unless-stopped
     logging: *default-logging
