@@ -31,3 +31,12 @@ ios.gitjournal.io {
 	root * /app-store-review-feed/
 	file_server
 }
+
+analytics.gitjournal.io {
+	reverse_proxy {
+		to h2c://analytics:8080
+		transport http {
+	    	versions h2c
+		}
+	}
+}

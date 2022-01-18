@@ -302,3 +302,13 @@ services:
     logging: *default-logging
     volumes:
       - ./data/app-store-review-feed/:/data
+
+  analytics:
+    image: ghcr.io/gitjournal/analytics_backend:latest
+    container_name: analytics
+    restart: unless-stopped
+    logging: *default-logging
+    depends_on:
+      - postgres
+    env_file:
+      - ./secrets/postgres.env
