@@ -26,7 +26,6 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./data/caddy/data:/data
       - ./data/caddy/config:/config
-      - ./data/fdroid:/fdroid
       - ./data/app-store-review-feed:/app-store-review-feed/
     networks:
       - web
