@@ -1,7 +1,6 @@
 version: "3.9"
 
-x-logging:
-  &default-logging
+x-logging: &default-logging
   driver: loki
   options:
     loki-url: "http://127.0.0.1:3100/loki/api/v1/push"
@@ -215,7 +214,7 @@ services:
       - ./data/n8n:/home/node/.n8n
     command: n8n start
 
-# Supabase Containers
+  # Supabase Containers
   kong:
     image: kong:2.1
     container_name: supabase-kong
@@ -240,53 +239,6 @@ services:
     env_file:
       - ./secrets/supabase-auth.env
 
-  rest:
-    image: postgrest/postgrest:v8.0.0
-    container_name: supabase-rest
-    restart: unless-stopped
-    logging: *default-logging
-    depends_on:
-      - postgres
-    env_file:
-      - ./secrets/supabase-rest.env
-
-  realtime:
-    image: supabase/realtime:v0.15.0
-    container_name: supabase-realtime
-    restart: unless-stopped
-    logging: *default-logging
-    depends_on:
-      - postgres
-    env_file:
-      - ./secrets/supabase-realtime.env
-
-  storage:
-    image: supabase/storage-api:v0.9.3
-    container_name: supabase-storage
-    restart: unless-stopped
-    logging: *default-logging
-    depends_on:
-      - postgres
-      - rest
-    volumes:
-      - ./data/supabase/storage:/var/lib/storage
-    env_file:
-      - ./secrets/supabase-storage.env
-
-
-  # db:
-  #   container_name: supabase-db
-  #   image: supabase/postgres:13.3.0
-  #   restart: unless-stopped
-  #   ports:
-  #     - ${POSTGRES_PORT}:5432
-  #   volumes:
-  #     - ./volumes/db/data:/var/lib/postgresql/data
-  #     - ./volumes/db/init:/docker-entrypoint-initdb.d
-  #   environment:
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  #   command: postgres -c wal_level=logical
-
   app-store-reviews:
     image: ghcr.io/gitjournal/app-store-review-feed
     container_name: app-store-review-feed
@@ -308,7 +260,6 @@ services:
     container_name: analytics
     restart: unless-stopped
     logging: *default-logging
-    depends_on:
-      - postgres
+    depends_on: postgres
     env_file:
       - ./secrets/postgres.env
