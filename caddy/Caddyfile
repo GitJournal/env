@@ -33,10 +33,5 @@ ios.gitjournal.io {
 }
 
 analytics.gitjournal.io {
-	reverse_proxy {
-		to h2c://analytics:8080
-		transport http {
-	    	versions h2c
-		}
-	}
+	reverse_proxy analytics:8080
 }
