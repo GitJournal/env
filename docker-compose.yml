@@ -260,6 +260,7 @@ services:
     container_name: analytics
     restart: unless-stopped
     logging: *default-logging
-    depends_on: postgres
+    depends_on:
+      - postgres
     env_file:
       - ./secrets/postgres.env
