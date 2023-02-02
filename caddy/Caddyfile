@@ -19,10 +19,6 @@ p.gitjournal.io {
 	reverse_proxy plausible:8000
 }
 
-api.gitjournal.io {
-	reverse_proxy kong:8000
-}
-
 ios.gitjournal.io {
 	root * /app-store-review-feed/
 	file_server
