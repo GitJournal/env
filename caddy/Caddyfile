@@ -19,10 +19,10 @@ p.gitjournal.io {
 	reverse_proxy plausible:8000
 }
 
-ios.gitjournal.io {
-	root * /app-store-review-feed/
-	file_server
-}
+// ios.gitjournal.io {
+// 	root * /app-store-review-feed/
+// 	file_server
+// }
 
 analytics.gitjournal.io {
 	reverse_proxy analytics:8080

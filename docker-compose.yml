@@ -182,19 +182,19 @@ services:
       - ./data/promtail:/data/
     command: -config.file=/etc/promtail/config.yml
 
-  app-store-reviews:
-    image: ghcr.io/gitjournal/app-store-review-feed
-    container_name: app-store-review-feed
-    restart: unless-stopped
-    volumes:
-      - ./data/app-store-review-feed/:/data
+  # app-store-reviews:
+  #   image: ghcr.io/gitjournal/app-store-review-feed
+  #   container_name: app-store-review-feed
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/app-store-review-feed/:/data
 
-  app-store-reviews-feed-converter:
-    build: feed-converter
-    container_name: app-store-review-feed-converter
-    restart: unless-stopped
-    volumes:
-      - ./data/app-store-review-feed/:/data
+  # app-store-reviews-feed-converter:
+  #   build: feed-converter
+  #   container_name: app-store-review-feed-converter
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/app-store-review-feed/:/data
 
   analytics:
     image: ghcr.io/gitjournal/analytics_backend:latest
