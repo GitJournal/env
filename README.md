@@ -12,7 +12,3 @@ For prometheus data -
 * ln -s /tmp/queries.active env/data/prometheus/queries.active
 * chown nobody data/prometheus -R
 * chgrp nogroup data/prometheus -R
-
-For Supabase -
-* Create the 'supabase' db
-* Run the postgres/supabase scripts manually
