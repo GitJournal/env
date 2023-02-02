@@ -12,3 +12,14 @@ For prometheus data -
 * ln -s /tmp/queries.active env/data/prometheus/queries.active
 * chown nobody data/prometheus -R
 * chgrp nogroup data/prometheus -R
+
+
+# How to connect to Postgres
+
+- /dt to list tables
+- /l to list databases
+- /c to connect to a database
+
+## How to restore a database
+
+- psql -U postgres -d gotrue -f gotrue.sql
