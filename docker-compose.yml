@@ -76,15 +76,15 @@ services:
     restart: unless-stopped
     logging: *default-logging
 
-  listmonk:
-    image: listmonk/listmonk:v2.0.0
-    container_name: listmonk
-    restart: unless-stopped
-    logging: *default-logging
-    volumes:
-      - ./secrets/listmonk.config.toml/:/listmonk/config.toml
-    depends_on:
-      - postgres
+  #listmonk:
+  #  image: listmonk/listmonk:v2.0.0
+  #  container_name: listmonk
+  #  restart: unless-stopped
+  #  logging: *default-logging
+  #  volumes:
+  #    - ./secrets/listmonk.config.toml/:/listmonk/config.toml
+  #  depends_on:
+  #    - postgres
 
   # listmonk_install:
   #   image: listmonk/listmonk:v2.0.0
