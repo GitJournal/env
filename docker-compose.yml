@@ -212,16 +212,6 @@ services:
       - ./data/n8n:/home/node/.n8n
     command: n8n start
 
-  auth:
-    image: supabase/gotrue:v2.1.8
-    container_name: supabase-auth
-    restart: unless-stopped
-    logging: *default-logging
-    depends_on:
-      - postgres
-    env_file:
-      - ./secrets/supabase-auth.env
-
   app-store-reviews:
     image: ghcr.io/gitjournal/app-store-review-feed
     container_name: app-store-review-feed
